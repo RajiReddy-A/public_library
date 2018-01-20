@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<link rel="stylesheet" type="text/css" href="css/homepage.css">
+	</head>
+	
+	<body>
+	  <div class='topmenu'>
+	
+	  </div>
+	
+	  <div class="form">
+	    <h1>Borrow a book</h1>
+	    <form method="post">
+	      <label>
+	        <pre>Book         </pre><input class="textBox" name="bookName" value ="">
+	      </label><br><br>
+	      <label>
+	        <pre>Username     </pre><input class="textBox" name="username" value ="">
+	      </label><br><br>
+	      <label>
+	        <pre>Mobile      </pre> <input class="textBox" name="mobile" value ="">
+	      </label><br><br>
+	
+	      <input type="submit" value="submit">
+	    </form><br>
+	
+	    <form action="/return_book">
+	      <input type="submit" value="RETURN A BOOK?">
+	    </form>
+	
+	  </div>
+	</body>
+	
+</html>
