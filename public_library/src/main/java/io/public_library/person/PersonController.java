@@ -14,7 +14,7 @@ public class PersonController {
 	@Autowired
 	private PersonService personService;
 	
-	@RequestMapping("/")
+	/*@RequestMapping("/")
 	public String homePage() {
 		List<Person> persons = new ArrayList<>(personService.getAllPersons());
 		System.out.println(persons);
@@ -24,6 +24,6 @@ public class PersonController {
 	@RequestMapping("/return_book")
 	public String returnBook() {
 		return "return_book";
-	}
+	}*/
 
 }
