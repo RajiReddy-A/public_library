@@ -14,7 +14,15 @@
 	    <h1>Borrow a book</h1>
 	    <form th:action="@{/}" method="post">
 	      <label>
-	        <pre>Book         </pre><input class="textBox" th:field="${book.bookName}" name="bookName" value ="">
+	        <pre>Book         </pre>
+	        <select class="textBox" th:field="${book.bookName}">
+	        	<div>
+	        	<option value="" th:disabled="disabled" th:selected="selected">Select a book to borrow   </option>
+	        	<option th:each="eachBook : ${booksList}"
+	        			th:value="${eachBook.bookName}" 
+	        			th:text="${eachBook.bookName}"></option>
+	        	</div>
+	        </select>
 	      </label><br><br>
 	      <label>
 	        <pre>Username     </pre><input class="textBox" th:field="${person.personName}" name="username" value ="">

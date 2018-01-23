@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.JoinColumn;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,7 +39,7 @@ public class Person {
 	@Column(name="mobile")
 	private String mobile;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="book2persons",
 		joinColumns=@JoinColumn(name="personId"),
 		inverseJoinColumns=@JoinColumn(name="bookId"))

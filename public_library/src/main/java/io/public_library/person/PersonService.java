@@ -17,4 +17,8 @@ public class PersonService {
 		personRepository.findAll().forEach(persons::add);
 		return persons;
 	}
+	
+	public void borrowedBy(Person person) {
+		personRepository.save(person);
+	}
 }

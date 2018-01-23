@@ -3,6 +3,7 @@ package io.public_library.book;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -40,11 +41,8 @@ public class Book {
 	
 	@Column(name="copiesAvailable")
 	private int    copiesAvailable;
-	//@JsonManagedReference
-	//private JSONArray people;
-	//@Column(name="people")
-	//private JSONObject people;
-	@ManyToMany(mappedBy="listOfBooks")
+	
+	@ManyToMany(mappedBy="listOfBooks", cascade = CascadeType.ALL)
 	private List<Person> listOfPersons = new ArrayList<Person>();
 	
 	public Book() {
@@ -108,15 +106,6 @@ public class Book {
 
 	public void setListOfPersons(List<Person> listOfPersons) {
 		this.listOfPersons = listOfPersons;
-	}
-
-	/*public JSONObject getPeople() {
-		return people;
-	}
-
-	public void setPeople(JSONObject people) {
-		this.people = people;
-	}*/
-	
+	}	
 	
 }
