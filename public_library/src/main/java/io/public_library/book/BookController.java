@@ -48,10 +48,16 @@ public class BookController {
 		String bookToBorrow = book.getBookName();
 		String personToBorrow = person.getPersonName();
 		String mobile = person.getMobile();
+		System.out.println("testing below");
+		System.out.println(book.getBookName());
+		System.out.println(book.getAuthor());
+		System.out.println(book.getBookId());
+		//book.setBookId(book.getBookId());
+		book.setAuthor("check4");
 		List<Book> listOfBooks = Arrays.asList(book);
 		List<Person> listOfPersons = Arrays.asList(person);
 		person.setListOfBooks(listOfBooks);
-		book.setListOfPersons(listOfPersons);
+		//book.setListOfPersons(listOfPersons);
 		bookService.borrowBook(bookToBorrow);
 		System.out.println("before personService.borrowedBy");
 		personService.borrowedBy(person);

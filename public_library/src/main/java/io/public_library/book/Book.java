@@ -42,8 +42,8 @@ public class Book {
 	@Column(name="copiesAvailable")
 	private int    copiesAvailable;
 	
-	@ManyToMany(mappedBy="listOfBooks", cascade = CascadeType.ALL)
-	private List<Person> listOfPersons = new ArrayList<Person>();
+	/*@ManyToMany(mappedBy="listOfBooks")
+	private List<Person> listOfPersons = new ArrayList<Person>();*/
 	
 	public Book() {
 		
@@ -100,12 +100,12 @@ public class Book {
 		this.copiesAvailable = copiesAvailable;
 	}
 
-	public List<Person> getListOfPersons() {
+	/*public List<Person> getListOfPersons() {
 		return listOfPersons;
 	}
 
 	public void setListOfPersons(List<Person> listOfPersons) {
 		this.listOfPersons = listOfPersons;
-	}	
+	}	*/
 	
 }
