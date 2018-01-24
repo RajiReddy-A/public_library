@@ -18,19 +18,14 @@ public class BookService {
 		return books;
 	}
 	
-	public String borrowBook(String bookName) {
-		System.out.println("the find one operation is below");
-		List<Book> books = bookRepository.findByBookName(bookName);
-		
-		if(books.get(0).getCopiesAvailable() >= 1) {
-			System.out.println("the book is available");
-			bookRepository.decreaseCopiesAvailable(books.get(0).getBookName());
-			return "success";
-		}
-		else {
-			System.out.println("the book is not available");
-			return "failure";
-		}
+	public Book getBook(String bookName) {
+		return bookRepository.findOne(bookName);
+	}
+	
+	public void decreaseCopiesAvailable(Book book) {
+		//System.out.println("the find one operation is below");
+		//List<Book> books = bookRepository.findByBookName(bookName);
+		bookRepository.decreaseCopiesAvailable(book.getBookName());
 		
 	}
 }

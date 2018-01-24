@@ -12,15 +12,23 @@
 	
 	  <div class="form">
 	    <h1>Return a book</h1>
-	    <form method="post">
+	    <form th:action="@{/return_book}" method="post">
 	      <label>
-	        <pre>Book         </pre><input class="textBox" name="bookName" value ="">
+	        <pre>Book         </pre>
+	        <select class="textBox" th:field="${book.bookName}">
+	        	<div>
+	        	<option value="" th:disabled="disabled" th:selected="selected">Select a book to borrow   </option>
+	        	<option th:each="eachBook : ${booksList}"
+	        			th:value="${eachBook.bookName}" 
+	        			th:text="${eachBook.bookName}"></option>
+	        	</div>
+	        </select>
 	      </label><br><br>
 	      <label>
-	        <pre>Username     </pre><input class="textBox" name="username" value ="">
+	        <pre>Username     </pre><input class="textBox" th:field="${person.personName}" name="username" value ="">
 	      </label><br><br>
 	      <label>
-	        <pre>Mobile      </pre> <input class="textBox" name="mobile" value ="">
+	        <pre>Mobile      </pre> <input class="textBox" th:field="${person.mobile}" name="mobile" value ="">
 	      </label><br><br>
 	
 	      <input type="submit" value="submit">

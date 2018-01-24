@@ -37,8 +37,12 @@ public class BookController {
 		return "homepage";
 	}
 	
-	@RequestMapping("/return_book")
-	public String returnBook() {
+	@RequestMapping(value="/return_book", method=RequestMethod.GET)
+	public String returnBook(Model model) {
+		List<Book> booksList = bookService.getAllBooks();
+		model.addAttribute("book", new Book());
+		model.addAttribute("person", new Person());
+		model.addAttribute("booksList", booksList);
 		return "return_book";
 	}
 	
@@ -48,14 +52,23 @@ public class BookController {
 		String bookToBorrow = book.getBookName();
 		String personToBorrow = person.getPersonName();
 		String mobile = person.getMobile();
-		List<Book> listOfBooks = Arrays.asList(book);
-		List<Person> listOfPersons = Arrays.asList(person);
-		person.setListOfBooks(listOfBooks);
-		book.setListOfPersons(listOfPersons);
-		bookService.borrowBook(bookToBorrow);
-		System.out.println("before personService.borrowedBy");
-		personService.borrowedBy(person);
-		return "borrowed_details";
+		Book dbBook = bookService.getBook(bookToBorrow);
+		
+		if(dbBook.getCopiesAvailable() >= 1) {
+			List<Book> listOfBooks = Arrays.asList(dbBook);
+			List<Person> listOfPersons = Arrays.asList(person);
+			person.setListOfBooks(listOfBooks);
+			book.setListOfPersons(listOfPersons);
+			personService.borrowedBy(person);
+			bookService.decreaseCopiesAvailable(dbBook);
+			return "borrowed_details";
+		}
+		else {
+			return "book_not_available";
+		}
+		
+		
+		
 	}
 
 }

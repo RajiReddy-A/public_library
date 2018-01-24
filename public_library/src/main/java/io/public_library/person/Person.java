@@ -42,7 +42,7 @@ public class Person {
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name="book2persons",
 		joinColumns=@JoinColumn(name="personId"),
-		inverseJoinColumns=@JoinColumn(name="bookId"))
+		inverseJoinColumns=@JoinColumn(name="bookName"))
 	private List<Book> listOfBooks = new ArrayList<Book>();
 	
 	public Person() {

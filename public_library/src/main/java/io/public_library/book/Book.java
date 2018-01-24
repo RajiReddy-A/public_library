@@ -25,11 +25,12 @@ import io.public_library.person.Person;
 @Table(name="book")
 public class Book {
 
-	@Id
+	/*@Id
 	@Column(name="bookId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int bookId;
+	private int bookId;*/
 	
+	@Id
 	@Column(name="bookName")
 	private String bookName;
 	
@@ -49,9 +50,9 @@ public class Book {
 		
 	}
 	
-	public Book(int bookId, String bookName, String author, int copiesTotal, int copiesAvailable) {
+	public Book(String bookName, String author, int copiesTotal, int copiesAvailable) {
 		super();
-		this.bookId = bookId;
+		//this.bookId = bookId;
 		this.bookName = bookName;
 		this.author = author;
 		this.copiesTotal = copiesTotal;
@@ -60,13 +61,13 @@ public class Book {
 		
 	}
 
-	public int getBookId() {
+	/*public int getBookId() {
 		return bookId;
 	}
 
 	public void setBookId(int bookId) {
 		this.bookId = bookId;
-	}
+	}*/
 
 	public String getBookName() {
 		return bookName;
