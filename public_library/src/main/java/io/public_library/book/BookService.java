@@ -22,10 +22,14 @@ public class BookService {
 		return bookRepository.findOne(bookName);
 	}
 	
-	public void decreaseCopiesAvailable(Book book) {
+	public void updateBook(Book book) {
+		bookRepository.save(book);
+	}
+	
+	/*public void decreaseCopiesAvailable(Book book) {
 		//System.out.println("the find one operation is below");
 		//List<Book> books = bookRepository.findByBookName(bookName);
 		bookRepository.decreaseCopiesAvailable(book.getBookName());
 		
-	}
+	}*/
 }

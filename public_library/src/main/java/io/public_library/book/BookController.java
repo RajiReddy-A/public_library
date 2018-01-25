@@ -37,15 +37,6 @@ public class BookController {
 		return "homepage";
 	}
 	
-	@RequestMapping(value="/return_book", method=RequestMethod.GET)
-	public String returnBook(Model model) {
-		List<Book> booksList = bookService.getAllBooks();
-		model.addAttribute("book", new Book());
-		model.addAttribute("person", new Person());
-		model.addAttribute("booksList", booksList);
-		return "return_book";
-	}
-	
 	
 	@RequestMapping(value="/", method=RequestMethod.POST)
 	public String borrowBook(@ModelAttribute Book book, @ModelAttribute Person person) {
@@ -59,16 +50,35 @@ public class BookController {
 			List<Person> listOfPersons = Arrays.asList(person);
 			person.setListOfBooks(listOfBooks);
 			book.setListOfPersons(listOfPersons);
+			dbBook.setCopiesAvailable(dbBook.getCopiesAvailable() - 1);
 			personService.borrowedBy(person);
-			bookService.decreaseCopiesAvailable(dbBook);
+			//bookService.decreaseCopiesAvailable(dbBook);
+			bookService.updateBook(dbBook);
+			System.out.println(person.getListOfBooks());
+			List<Book> bookCheck = person.getListOfBooks();
 			return "borrowed_details";
 		}
 		else {
 			return "book_not_available";
 		}
-		
-		
-		
+			
+	}
+	
+	@RequestMapping(value="/return_book", method=RequestMethod.GET)
+	public String returnBookPage(Model model) {
+		List<Book> booksList = bookService.getAllBooks();
+		List<Person> personsList = personService.getAllPersons();
+		model.addAttribute("book", new Book());
+		model.addAttribute("person", new Person());
+		model.addAttribute("booksList", booksList);
+		model.addAttribute("personsList", personsList);
+		System.out.println();
+		return "return_book";
+	}
+	
+	@RequestMapping(value="/return_book", method=RequestMethod.POST)
+	public String returnBook(@ModelAttribute Book book, @ModelAttribute Person person) {
+		return "chek";
 	}
 
 }

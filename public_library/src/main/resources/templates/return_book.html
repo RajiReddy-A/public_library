@@ -25,7 +25,15 @@
 	        </select>
 	      </label><br><br>
 	      <label>
-	        <pre>Username     </pre><input class="textBox" th:field="${person.personName}" name="username" value ="">
+	        <pre>Username     </pre>
+	        <select class="textBox" th:field="${person.personName}">
+	        	<div>
+	        	<option value="" th:disabled="disabled" th:selected="selected">What's your name?   </option>
+	        	<option th:each="eachPerson : ${personsList}"
+	        			th:value="${eachPerson.personName}" 
+	        			th:text="${eachPerson.personName}"></option>
+	        	</div>
+	        </select>
 	      </label><br><br>
 	      <label>
 	        <pre>Mobile      </pre> <input class="textBox" th:field="${person.mobile}" name="mobile" value ="">

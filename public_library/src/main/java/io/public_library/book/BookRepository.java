@@ -11,8 +11,8 @@ public interface BookRepository extends CrudRepository<Book, String>{
 
 	public List<Book> findByBookName(String bookName);
 	
-	@Transactional
+	/*@Transactional
 	@Modifying
 	@Query("update Book book set book.copiesAvailable=book.copiesAvailable-1 where book.bookName=?1")
-	public void decreaseCopiesAvailable(String bookName);
+	public void decreaseCopiesAvailable(String bookName);*/
 }
