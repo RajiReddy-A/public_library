@@ -28,11 +28,12 @@ import io.public_library.book.Book;
 @Table(name="person")
 public class Person {
 
-	@Id
+	/*@Id
 	@Column(name="personId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int personId;
+	private int personId;*/
 	
+	@Id
 	@Column(name="personName")
 	private String personName;
 	
@@ -40,8 +41,8 @@ public class Person {
 	private String mobile;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="book2persons",
-		joinColumns=@JoinColumn(name="personId"),
+	@JoinTable(name="bookandperson",
+		joinColumns=@JoinColumn(name="personName"),
 		inverseJoinColumns=@JoinColumn(name="bookName"))
 	private List<Book> listOfBooks = new ArrayList<Book>();
 	
@@ -49,20 +50,11 @@ public class Person {
 		
 	}
 	
-	public Person(int personId, String personName, String mobile) {
+	public Person(String personName, String mobile) {
 		super();
-		this.personId = personId;
 		this.personName = personName;
 		this.mobile = mobile;
 		
-	}
-
-	public int getPersonId() {
-		return personId;
-	}
-
-	public void setPersonId(int personId) {
-		this.personId = personId;
 	}
 
 	public String getPersonName() {

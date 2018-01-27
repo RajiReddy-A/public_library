@@ -12,3 +12,8 @@
 pre{
   display: inline;
 }
+
+.errormessage{
+	color: red;
+	font-weight: bold;
+}

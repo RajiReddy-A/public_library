@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/homepage.css}">
+	</head>
+	
+	<body>
+	  <div class='topmenu'>
+	
+	  </div>
+	
+	  <div class="form">
+	    <h1>Register your name</h1>
+	    <form th:action="@{/user_registration}" method="post">
+	      <label>
+	        <pre>Username     </pre><input class="textBox" th:field="${person.personName}" name="username" value ="">
+	      </label><br><br>
+	      <label>
+	        <pre>Mobile      </pre> <input class="textBox" th:field="${person.mobile}" name="mobile" value ="">
+	      </label><br><br>
+	
+	      <input type="submit" value="submit">
+	    </form><br>
+	    
+	    <div class="errormessage">
+	    	<p th:if="${message} == 'username taken'" th:text="'The username is already taken'"></p>
+	    </div>
+	    
+	    <form action="/">
+	      <input type="submit" value="BORROW A BOOK?">
+	    </form><br><br>
+	    
+	    <form action="/return_book">
+	      <input type="submit" value="RETURN A BOOK?">
+	    </form>
+	
+	  </div>
+	</body>
+	
+</html>

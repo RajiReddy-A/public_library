@@ -21,4 +21,15 @@ public class PersonService {
 	public void borrowedBy(Person person) {
 		personRepository.save(person);
 	}
+	
+	public String registerUser(Person person) {
+		Boolean userExists = personRepository.exists(person.getPersonName());
+		if(userExists) {
+			return "failure";
+		}
+		else {
+			personRepository.save(person);
+			return "success";
+		}
+	}
 }

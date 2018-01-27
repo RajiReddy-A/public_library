@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<link rel="stylesheet" type="text/css" th:href="@{css/homepage.css}">
+	</head>
+	
+	<body>
+	  <div class='topmenu'>
+	
+	  </div>
+		
+	  <div class="successmessage">
+	  	<p th:if="${message} == 'successfully registered'" th:text="'congrates,successfully registered'"></p>
+	  </div>	
+	  
+	  <div class="form">
+	    <form action="/">
+	      <input type="submit" value="BORROW A BOOK?">
+	    </form><br><br>
+	    
+	    <form action="/return_book">
+	      <input type="submit" value="RETURN A BOOK?">
+	    </form>
+	
+	  </div>
+	</body>
+	
+</html>

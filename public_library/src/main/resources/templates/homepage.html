@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 	<head>
-		<link rel="stylesheet" type="text/css" href="css/homepage.css">
+		<link rel="stylesheet" type="text/css" th:href="@{css/homepage.css}">
 	</head>
 	
 	<body>
@@ -25,7 +25,15 @@
 	        </select>
 	      </label><br><br>
 	      <label>
-	        <pre>Username     </pre><input class="textBox" th:field="${person.personName}" name="username" value ="">
+	        <pre>Username     </pre>
+	        <select class="textBox" th:field="${person.personName}">
+	        	<div>
+	        	<option value="" th:disabled="disabled" th:selected="selected">Select your name          </option>
+	        	<option th:each="eachPerson : ${personsList}"
+	        			th:value="${eachPerson.personName}" 
+	        			th:text="${eachPerson.personName}"></option>
+	        	</div>
+	        </select>
 	      </label><br><br>
 	      <label>
 	        <pre>Mobile      </pre> <input class="textBox" th:field="${person.mobile}" name="mobile" value ="">
@@ -36,6 +44,10 @@
 	
 	    <form action="/return_book">
 	      <input type="submit" value="RETURN A BOOK?">
+	    </form>
+	    
+	    <form action="/user_registration">
+	      <input type="submit" value="NEW USER? CLICK TO REGISTER!">
 	    </form>
 	
 	  </div>

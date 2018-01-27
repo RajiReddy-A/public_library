@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import io.public_library.person.Person;
 import io.public_library.person.PersonService;
@@ -30,9 +31,11 @@ public class BookController {
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String homePage(Model model) {
 		List<Book> booksList = bookService.getAllBooks();
+		List<Person> personsList = personService.getAllPersons();
 		model.addAttribute("book", new Book());
 		model.addAttribute("person", new Person());
 		model.addAttribute("booksList", booksList);
+		model.addAttribute("personsList", personsList);
 		//List<Book> books = new ArrayList<>(bookService.getAllBooks());
 		return "homepage";
 	}
@@ -79,6 +82,33 @@ public class BookController {
 	@RequestMapping(value="/return_book", method=RequestMethod.POST)
 	public String returnBook(@ModelAttribute Book book, @ModelAttribute Person person) {
 		return "chek";
+	}
+	
+	@RequestMapping(value="/user_registration", method=RequestMethod.GET)
+	public String userRegistrationPage(Model model) {
+		String message = (String)model.asMap().get("message");
+		model.addAttribute("person", new Person());
+		model.addAttribute("message", message);
+		return "user_registration";
+	}
+	
+	@RequestMapping(value="/user_registration", method=RequestMethod.POST)
+	public String userRegistration(@ModelAttribute Person person, RedirectAttributes redirectAttrs) {
+		String userRegistered  = personService.registerUser(person);
+		if(userRegistered.equals("success")) {
+			redirectAttrs.addFlashAttribute("message", "successfully registered");
+			return "redirect:/messages";
+		}
+		else {
+			redirectAttrs.addFlashAttribute("message", "username taken");
+			return "redirect:/user_registration";
+		}
+	}
+	
+	@RequestMapping(value="/messages", method=RequestMethod.GET)
+	public void messages(Model model) {
+		String message = (String)model.asMap().get("message");
+		model.addAttribute("message", message);
 	}
 
 }
