@@ -41,6 +41,14 @@
 	
 	      <input type="submit" value="submit">
 	    </form><br>
+	    
+	    <div class="errormessage">
+	    	<p th:if="${message} == 'book not available'" th:text="'The book you selected is not available at the moment!'"></p>
+	    </div><br>
+	    
+	    <div class="errormessage">
+	    	<p th:if="${message} == 'incorrect mobile'" th:text="'Please enter the correct mobile number!'"></p>
+	    </div><br>
 	
 	    <form action="/return_book">
 	      <input type="submit" value="RETURN A BOOK?">

@@ -42,28 +42,23 @@ public class BookController {
 	
 	
 	@RequestMapping(value="/", method=RequestMethod.POST)
-	public String borrowBook(@ModelAttribute Book book, @ModelAttribute Person person) {
-		String bookToBorrow = book.getBookName();
-		String personToBorrow = person.getPersonName();
-		String mobile = person.getMobile();
-		Book dbBook = bookService.getBook(bookToBorrow);
+	public String borrowBook(@ModelAttribute Book book, @ModelAttribute Person person, RedirectAttributes redirectAttrs) {
 		
-		if(dbBook.getCopiesAvailable() >= 1) {
-			List<Book> listOfBooks = Arrays.asList(dbBook);
-			List<Person> listOfPersons = Arrays.asList(person);
-			person.setListOfBooks(listOfBooks);
-			book.setListOfPersons(listOfPersons);
-			dbBook.setCopiesAvailable(dbBook.getCopiesAvailable() - 1);
-			personService.borrowedBy(person);
-			//bookService.decreaseCopiesAvailable(dbBook);
-			bookService.updateBook(dbBook);
-			System.out.println(person.getListOfBooks());
-			List<Book> bookCheck = person.getListOfBooks();
-			return "borrowed_details";
+		String borrowStatus = bookService.borrowBook(book, person);
+		
+		if(borrowStatus.equals("success")) {
+			redirectAttrs.addFlashAttribute("message", "successfully borrowed");
+			return "redirect:/messages";
+		}
+		else if(borrowStatus.equals("book not available")) {
+			redirectAttrs.addFlashAttribute("message", "book not available");
+			return "redirect:/";
 		}
 		else {
-			return "book_not_available";
+			redirectAttrs.addFlashAttribute("message", "incorrect mobile");
+			return "redirect:/";
 		}
+		
 			
 	}
 	
@@ -75,7 +70,6 @@ public class BookController {
 		model.addAttribute("person", new Person());
 		model.addAttribute("booksList", booksList);
 		model.addAttribute("personsList", personsList);
-		System.out.println();
 		return "return_book";
 	}
 	
