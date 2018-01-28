@@ -50,6 +50,10 @@ public class BookController {
 			redirectAttrs.addFlashAttribute("message", "successfully borrowed");
 			return "redirect:/messages";
 		}
+		else if(borrowStatus.equals("same book already borrowed")) {
+			redirectAttrs.addFlashAttribute("message", "same book already borrowed");
+			return "redirect:/";
+		}
 		else if(borrowStatus.equals("book not available")) {
 			redirectAttrs.addFlashAttribute("message", "book not available");
 			return "redirect:/";
@@ -74,15 +78,30 @@ public class BookController {
 	}
 	
 	@RequestMapping(value="/return_book", method=RequestMethod.POST)
-	public String returnBook(@ModelAttribute Book book, @ModelAttribute Person person) {
-		return "chek";
+	public String returnBook(@ModelAttribute Book book, @ModelAttribute Person person, RedirectAttributes redirectAttrs) {
+		
+		String returnStatus = bookService.returnBook(book, person);
+		
+		if(returnStatus.equals("success")) {
+			redirectAttrs.addFlashAttribute("message", "successfully returned");
+			return "redirect:/messages";
+		}
+		else if(returnStatus.equals("book not borrowed")) {
+			redirectAttrs.addFlashAttribute("message", "book not borrowed");
+			return "redirect:/return_book";
+		}
+		else {
+			redirectAttrs.addFlashAttribute("message", "incorrect mobile");
+			return "redirect:/return_book";
+		}
+		
 	}
 	
 	@RequestMapping(value="/user_registration", method=RequestMethod.GET)
 	public String userRegistrationPage(Model model) {
-		String message = (String)model.asMap().get("message");
+		/*String message = (String)model.asMap().get("message");
+		model.addAttribute("message", message);*/
 		model.addAttribute("person", new Person());
-		model.addAttribute("message", message);
 		return "user_registration";
 	}
 	

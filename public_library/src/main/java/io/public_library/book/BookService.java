@@ -39,11 +39,15 @@ public class BookService {
 		Person dbPerson = personRepository.findOne(person.getPersonName());
 		
 		if(dbPerson.getMobile().equals(person.getMobile())) {
-			if(dbBook.getCopiesAvailable() >= 1) {
-				List<Book> booksList = dbPerson.getListOfBooks();
+			List<Book> booksList = dbPerson.getListOfBooks();
+			List<Person> personsList = dbBook.getListOfPersons();
+			Boolean isItBorrowed = booksList.contains(dbBook);
+			if(isItBorrowed) {
+				return "same book already borrowed";
+			}
+			else if(dbBook.getCopiesAvailable() >= 1) {
 				booksList.add(dbBook);
 				dbPerson.setListOfBooks(booksList);
-				List<Person> personsList = dbBook.getListOfPersons();
 				personsList.add(dbPerson);
 				dbBook.setListOfPersons(personsList);
 				dbBook.setCopiesAvailable(dbBook.getCopiesAvailable()-1);
@@ -58,10 +62,31 @@ public class BookService {
 			return "incorrect mobile";
 		}
 	}
-	/*public void decreaseCopiesAvailable(Book book) {
-		//System.out.println("the find one operation is below");
-		//List<Book> books = bookRepository.findByBookName(bookName);
-		bookRepository.decreaseCopiesAvailable(book.getBookName());
+	
+	@Transactional
+	public String returnBook(Book book, Person person) {
+		Book dbBook = bookRepository.findOne(book.getBookName());
+		Person dbPerson = personRepository.findOne(person.getPersonName());
 		
-	}*/
+		if(dbPerson.getMobile().equals(person.getMobile())) {
+			List<Book> booksList = dbPerson.getListOfBooks();
+			List<Person> personsList = dbBook.getListOfPersons();
+			Boolean isItBorrowed = booksList.contains(dbBook);
+			if(isItBorrowed) {
+				booksList.remove(dbBook);
+				personsList.remove(dbPerson);
+				dbPerson.setListOfBooks(booksList);
+				dbBook.setListOfPersons(personsList);
+				dbBook.setCopiesAvailable(dbBook.getCopiesAvailable()+1);
+				bookRepository.save(dbBook);
+				return "success";
+			}
+			else {
+				return "book not borrowed";
+			}
+		}
+		else {
+			return "incorrect mobile";
+		}
+	}
 }

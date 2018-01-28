@@ -43,6 +43,10 @@
 	    </form><br>
 	    
 	    <div class="errormessage">
+	    	<p th:if="${message} == 'same book already borrowed'" th:text="'The book you selected is already with you!'"></p>
+	    </div><br>
+	    
+	    <div class="errormessage">
 	    	<p th:if="${message} == 'book not available'" th:text="'The book you selected is not available at the moment!'"></p>
 	    </div><br>
 	    

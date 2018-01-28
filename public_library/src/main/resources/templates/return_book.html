@@ -41,6 +41,14 @@
 	
 	      <input type="submit" value="submit">
 	    </form><br>
+	    
+	    <div class="errormessage">
+	    	<p th:if="${message} == 'book not borrowed'" th:text="'You did not borrow the selected book!'"></p>
+	    </div><br>
+	    
+	    <div class="errormessage">
+	    	<p th:if="${message} == 'incorrect mobile'" th:text="'Please enter the correct mobile number!'"></p>
+	    </div><br>
 	
 	    <form action="/">
 	      <input type="submit" value="BORROW A BOOK?">
